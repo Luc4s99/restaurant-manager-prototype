@@ -6,6 +6,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import { CardapioService } from './services/cardapio.service';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -26,8 +27,17 @@ export class CardapioComponent {
   public itensCardapio: Observable<ItemCardapio[]>;
   public displayedColumns: string[] = ['descricao', 'preco'];
 
-  constructor(private cardapioService: CardapioService) {
+  constructor(
+    private cardapioService: CardapioService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
 
     this.itensCardapio = this.cardapioService.listar();
+  }
+
+  novoItemCardapio() {
+
+    this.router.navigate(["novo"], {relativeTo: this.route})
   }
 }

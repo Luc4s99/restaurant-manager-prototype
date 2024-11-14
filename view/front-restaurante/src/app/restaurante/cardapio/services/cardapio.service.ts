@@ -15,4 +15,9 @@ export class CardapioService {
 
     return this.httpClient.get<ItemCardapio[]>(this.GATEWAY);
   }
+
+  salvar(itemCardapio: ItemCardapio) {
+
+    return this.httpClient.post<ItemCardapio>(this.GATEWAY + "/novo", itemCardapio);
+  }
 }

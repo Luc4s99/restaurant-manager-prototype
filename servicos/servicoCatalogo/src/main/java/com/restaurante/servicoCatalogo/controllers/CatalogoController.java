@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/catalogo")
 public class CatalogoController {
 
     private final CatalogoService catalogoService;
@@ -20,17 +19,18 @@ public class CatalogoController {
         this.catalogoService = catalogoService;
     }
 
+    @RequestMapping("/catalogo")
     @GetMapping
     public ResponseEntity<List<CatalogoModel>> getCatalogo() {
 
         return ResponseEntity.status(HttpStatus.OK).body(catalogoService.listarTodos());
     }
 
-    /*@PostMapping
-    public ResponseEntity<CatalogoModel> saveCatalogo(@RequestBody CatalogoRecord catalogoRecord) {
+    @RequestMapping("/catalogo/novo")
+    @PostMapping
+    public ResponseEntity<CatalogoModel> saveCatalogo(@RequestBody CatalogoModel itemCatalogo) {
 
-        CatalogoModel catalogoModel = new CatalogoModel(catalogoRecord.id(),
-                                                        catalogoRecord.descricao(),
-                                                        catalogoRecord.preco());
-    }*/
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(catalogoService.salvar(itemCatalogo));
+    }
 }

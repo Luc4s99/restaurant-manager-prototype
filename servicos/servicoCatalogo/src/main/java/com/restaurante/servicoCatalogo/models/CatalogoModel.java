@@ -16,15 +16,12 @@ public class CatalogoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
-    @Setter
+    @Getter @Setter
     private UUID id;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private String descricao;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Double preco;
 }
