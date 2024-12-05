@@ -19,18 +19,30 @@ public class CatalogoController {
         this.catalogoService = catalogoService;
     }
 
-    @RequestMapping("/catalogo")
+    @RequestMapping("/cardapio")
     @GetMapping
     public ResponseEntity<List<CatalogoModel>> getCatalogo() {
 
         return ResponseEntity.status(HttpStatus.OK).body(catalogoService.listarTodos());
     }
 
-    @RequestMapping("/catalogo/novo")
+    @RequestMapping("/cardapio/novo")
     @PostMapping
     public ResponseEntity<CatalogoModel> saveCatalogo(@RequestBody CatalogoModel itemCatalogo) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(catalogoService.salvar(itemCatalogo));
+    }
+
+    @RequestMapping("/cardapio/{id}")
+    @DeleteMapping
+    public ResponseEntity<Void> deleteCatalogo(@PathVariable String id) {
+
+        return catalogoService.listarPorId(id)
+                        .map(registroEncontrado -> {
+                            catalogoService.excluir(id);
+                            return ResponseEntity.noContent().<Void>build();
+                        })
+                                .orElse(ResponseEntity.notFound().build());
     }
 }

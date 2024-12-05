@@ -18,11 +18,20 @@ public class GatewayConfiguration {
                 .route("rotaPedido", r -> r.path("/pedido")
                         .uri("http://localhost:8082/"))
 
-                .route("rotaCatalogo", r -> r.path("/catalogo")
+                //ROTAS CATÁLOGO
+                .route("rotaCardapio", r -> r.path("/cardapio")
                         .uri("http://localhost:8083/"))
 
-                .route("rotaCatalogoNovo", r -> r.path("/catalogo/novo")
+                .route("rotaCardapioNovo", r -> r.path("/cardapio/novo")
                         .uri("http://localhost:8083/novo"))
+
+                .route("rotaRemoverItemCardapio", r -> r.path("/cardapio/**")
+                        .filters(f -> f.rewritePath("cardapio/(?<id>.*)", "/cardapio/${id}"))
+                        .uri("http://localhost:8083"))
+
+                .route("rotaEditarItemCardapio", r -> r.path("/cardapio/novo/**")
+                        .filters(f -> f.rewritePath("cardapio/novo/(?<id>.*)", "/cardapio/novo/${id}"))
+                        .uri("http://localhost:8083"))
 
                 .build();
     }

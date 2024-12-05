@@ -1,13 +1,13 @@
 package com.restaurante.servicoCatalogo.services;
 
 import com.restaurante.servicoCatalogo.models.CatalogoModel;
-import com.restaurante.servicoCatalogo.records.CatalogoRecord;
 import com.restaurante.servicoCatalogo.repositories.CatalogoRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CatalogoService {
@@ -29,5 +29,17 @@ public class CatalogoService {
     public List<CatalogoModel> listarTodos() {
 
         return catalogoRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<CatalogoModel> listarPorId(String id) {
+
+        return catalogoRepository.findById(UUID.fromString(id));
+    }
+
+    @Transactional
+    public void excluir(String id) {
+
+        catalogoRepository.deleteById(UUID.fromString(id));
     }
 }

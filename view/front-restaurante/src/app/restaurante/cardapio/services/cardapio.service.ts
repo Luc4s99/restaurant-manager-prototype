@@ -1,5 +1,5 @@
+import { ItemCardapio } from './../../modelos/item-cardapio';
 import { Injectable } from '@angular/core';
-import { ItemCardapio } from '../../modelos/item-cardapio';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CardapioService {
 
-  private readonly GATEWAY = "http://localhost:8080/catalogo";
+  private readonly GATEWAY = "http://localhost:8080/cardapio";
 
   constructor(private httpClient : HttpClient) { }
 
@@ -19,5 +19,15 @@ export class CardapioService {
   salvar(itemCardapio: ItemCardapio) {
 
     return this.httpClient.post<ItemCardapio>(this.GATEWAY + "/novo", itemCardapio);
+  }
+
+  remover(itemCardapio: ItemCardapio) {
+
+    return this.httpClient.delete<ItemCardapio>(this.GATEWAY + `/${itemCardapio.id}`);
+  }
+
+  editar(itemCardapio : ItemCardapio) {
+
+    return this.httpClient.put<ItemCardapio>(this.GATEWAY + `/novo/${itemCardapio.id}`, itemCardapio);
   }
 }

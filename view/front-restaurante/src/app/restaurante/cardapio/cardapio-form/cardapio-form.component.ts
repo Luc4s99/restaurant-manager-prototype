@@ -7,7 +7,6 @@ import {MatButtonModule} from '@angular/material/button';
 import { CardapioService } from '../services/cardapio.service';
 import { Location } from '@angular/common';
 
-
 @Component({
   selector: 'app-cardapio-form',
   standalone: true,
@@ -36,8 +35,7 @@ export class CardapioFormComponent {
 
   salvarItem() {
 
-    this.service.salvar(this.formGroup.value).subscribe(result => console.log(result));
-    this.location.back();
+    this.service.salvar(this.formGroup.value).subscribe(() => this.location.back());
   }
 
   cancelar() {

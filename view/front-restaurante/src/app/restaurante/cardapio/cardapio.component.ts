@@ -1,14 +1,15 @@
+import { ItemCardapio } from './../modelos/item-cardapio';
 import { Component } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { ItemCardapio } from '../modelos/item-cardapio';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import { CardapioService } from './services/cardapio.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cardapio',
@@ -17,15 +18,18 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatTableModule,
     MatCardModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    CommonModule
   ],
   templateUrl: './cardapio.component.html',
   styleUrl: './cardapio.component.scss'
 })
 export class CardapioComponent {
 
-  public itensCardapio: Observable<ItemCardapio[]>;
-  public displayedColumns: string[] = ['descricao', 'preco'];
+  public itensCardapio$: Observable<ItemCardapio[]> | null = null;
+  public displayedColumns: string[] = ['descricao', 'preco', 'acoes'];
 
   constructor(
     private cardapioService: CardapioService,
@@ -33,11 +37,28 @@ export class CardapioComponent {
     private route: ActivatedRoute
   ) {
 
-    this.itensCardapio = this.cardapioService.listar();
+    this.carregarItens();
+  }
+
+  carregarItens() {
+
+    this.itensCardapio$ = this.cardapioService.listar().pipe();
   }
 
   novoItemCardapio() {
 
     this.router.navigate(["novo"], {relativeTo: this.route})
+  }
+
+  editarItem(item: ItemCardapio) {
+
+    this.cardapioService.editar(item);
+  }
+
+  removerItem(item: ItemCardapio) {
+
+    this.cardapioService.remover(item).subscribe(
+      () => this.carregarItens()
+    );
   }
 }
