@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CatalogoController {
@@ -34,7 +35,7 @@ public class CatalogoController {
                 .body(catalogoService.salvar(itemCatalogo));
     }
 
-    @RequestMapping("/cardapio/{id}")
+    @RequestMapping("/cardapio/excluir/{id}")
     @DeleteMapping
     public ResponseEntity<Void> deleteCatalogo(@PathVariable String id) {
 
@@ -44,5 +45,21 @@ public class CatalogoController {
                             return ResponseEntity.noContent().<Void>build();
                         })
                                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @RequestMapping("/cardapio/{id}")
+    @GetMapping
+    public ResponseEntity<Optional<CatalogoModel>> buscarPorId(@PathVariable String id) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(catalogoService.listarPorId(id));
+    }
+
+    @RequestMapping("/cardapio/editar/{id}")
+    @PutMapping
+    public ResponseEntity<CatalogoModel> editarItem(@RequestBody CatalogoModel itemCatalogo) {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(catalogoService.salvar(itemCatalogo));
     }
 }

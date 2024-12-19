@@ -1,5 +1,5 @@
 import { ItemCardapio } from './../modelos/item-cardapio';
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -52,7 +52,7 @@ export class CardapioComponent {
 
   editarItem(item: ItemCardapio) {
 
-    this.cardapioService.editar(item);
+    this.router.navigate(["editar", item.id], {relativeTo: this.route})
   }
 
   removerItem(item: ItemCardapio) {

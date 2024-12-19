@@ -5,7 +5,8 @@ import { CardapioFormComponent } from './cardapio/cardapio-form/cardapio-form.co
 
 const routes: Routes = [
   {path: '', component: RestauranteComponent},
-  {path: 'novo', component: CardapioFormComponent}
+  {path: 'novo', component: CardapioFormComponent},
+  {path: 'editar/:id', component: CardapioFormComponent}
 ];
 
 @NgModule({

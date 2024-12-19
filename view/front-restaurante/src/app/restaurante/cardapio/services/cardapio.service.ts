@@ -23,11 +23,16 @@ export class CardapioService {
 
   remover(itemCardapio: ItemCardapio) {
 
-    return this.httpClient.delete<ItemCardapio>(this.GATEWAY + `/${itemCardapio.id}`);
+    return this.httpClient.delete<ItemCardapio>(this.GATEWAY + `/excluir/${itemCardapio.id}`);
   }
 
   editar(itemCardapio : ItemCardapio) {
 
-    return this.httpClient.put<ItemCardapio>(this.GATEWAY + `/novo/${itemCardapio.id}`, itemCardapio);
+    return this.httpClient.put<ItemCardapio>(this.GATEWAY + `/editar/${itemCardapio.id}`, itemCardapio);
+  }
+
+  buscarPorId(id: string) {
+
+    return this.httpClient.get<ItemCardapio>(this.GATEWAY + `/${id}`);
   }
 }

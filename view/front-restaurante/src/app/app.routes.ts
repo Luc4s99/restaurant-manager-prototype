@@ -15,5 +15,9 @@ export const routes: Routes = [
   {
     path: 'cardapio/novo',
     component: CardapioFormComponent
+  },
+  {
+    path: 'cardapio/editar/:id',
+    component: CardapioFormComponent
   }
 ];
