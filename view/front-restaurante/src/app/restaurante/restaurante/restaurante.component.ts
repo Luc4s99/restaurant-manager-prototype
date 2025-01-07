@@ -21,4 +21,14 @@ export class RestauranteComponent {
 
     this.router.navigate(["cardapio"])
   }
+
+  redirecionaCozinha() {
+
+    this.router.navigate(["cozinha"])
+  }
+
+  redirecionaPedido() {
+
+    this.router.navigate(["pedido"])
+  }
 }

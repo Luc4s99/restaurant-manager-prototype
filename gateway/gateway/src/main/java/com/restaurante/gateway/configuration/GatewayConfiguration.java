@@ -12,9 +12,12 @@ public class GatewayConfiguration {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 
         return builder.routes()
+
+                //ROTAS COZINHA
                 .route("rotaCozinha", r -> r.path("/cozinha")
                     .uri("http://localhost:8081/"))
 
+                //ROTAS PEDIDO
                 .route("rotaPedido", r -> r.path("/pedido")
                         .uri("http://localhost:8082/"))
 
