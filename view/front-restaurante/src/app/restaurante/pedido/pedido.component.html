@@ -1,0 +1,10 @@
+<p>Realize seu pedido</p>
+
+<mat-form-field>
+  <mat-label>Item</mat-label>
+  <mat-select>
+    <mat-option [value]="pedido" *ngFor="let item of itensCardapio$ | async">{{item.descricao}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button (click)="realizarPedido()">Pedir</button>

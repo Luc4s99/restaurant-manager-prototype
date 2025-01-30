@@ -2,7 +2,7 @@ import { CardapioFormComponent } from './restaurante/cardapio/cardapio-form/card
 import { Routes } from '@angular/router';
 import { CardapioComponent } from './restaurante/cardapio/cardapio.component';
 import { CozinhaComponent } from './restaurante/cozinha/cozinha/cozinha.component';
-import { PedidoComponent } from './restaurante/pedido/pedido/pedido.component';
+import { PedidoComponent } from './restaurante/pedido/pedido.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'restaurante' },
