@@ -9,7 +9,6 @@ import {MatButtonModule} from '@angular/material/button';
 import { CardapioService } from '../services/cardapio.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { UUID } from 'node:crypto';
 
 @Component({
   selector: 'app-cardapio-form',

@@ -1,6 +1,6 @@
 package com.restaurante.servicoCatalogo.services;
 
-import com.restaurante.servicoCatalogo.models.CatalogoModel;
+import com.restaurante.servicoCatalogo.models.Produto;
 import com.restaurante.servicoCatalogo.repositories.CatalogoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
@@ -20,19 +20,19 @@ public class CatalogoService {
     }
 
     @Transactional
-    public CatalogoModel salvar(CatalogoModel catalogoModel) {
+    public Produto salvar(Produto catalogoModel) {
 
         return catalogoRepository.save(catalogoModel);
     }
 
     @Transactional(readOnly = true)
-    public List<CatalogoModel> listarTodos() {
+    public List<Produto> listarTodos() {
 
         return catalogoRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Optional<CatalogoModel> listarPorId(String id) {
+    public Optional<Produto> listarPorId(String id) {
 
         return catalogoRepository.findById(UUID.fromString(id));
     }

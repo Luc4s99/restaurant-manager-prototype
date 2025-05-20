@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "CATALOGO")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CatalogoModel {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

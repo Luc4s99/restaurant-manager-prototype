@@ -1,7 +1,6 @@
 package com.restaurante.servicoCatalogo.controllers;
 
-import com.restaurante.servicoCatalogo.models.CatalogoModel;
-import com.restaurante.servicoCatalogo.records.CatalogoRecord;
+import com.restaurante.servicoCatalogo.models.Produto;
 import com.restaurante.servicoCatalogo.services.CatalogoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,14 @@ public class CatalogoController {
 
     @RequestMapping("/cardapio")
     @GetMapping
-    public ResponseEntity<List<CatalogoModel>> getCatalogo() {
+    public ResponseEntity<List<Produto>> getCatalogo() {
 
         return ResponseEntity.status(HttpStatus.OK).body(catalogoService.listarTodos());
     }
 
     @RequestMapping("/cardapio/novo")
     @PostMapping
-    public ResponseEntity<CatalogoModel> saveCatalogo(@RequestBody CatalogoModel itemCatalogo) {
+    public ResponseEntity<Produto> saveCatalogo(@RequestBody Produto itemCatalogo) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(catalogoService.salvar(itemCatalogo));
@@ -49,7 +48,7 @@ public class CatalogoController {
 
     @RequestMapping("/cardapio/{id}")
     @GetMapping
-    public ResponseEntity<Optional<CatalogoModel>> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<Optional<Produto>> buscarPorId(@PathVariable String id) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(catalogoService.listarPorId(id));
@@ -57,7 +56,7 @@ public class CatalogoController {
 
     @RequestMapping("/cardapio/editar/{id}")
     @PutMapping
-    public ResponseEntity<CatalogoModel> editarItem(@RequestBody CatalogoModel itemCatalogo) {
+    public ResponseEntity<Produto> editarItem(@RequestBody Produto itemCatalogo) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(catalogoService.salvar(itemCatalogo));

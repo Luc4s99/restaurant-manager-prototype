@@ -6,11 +6,16 @@ import { CardapioService } from '../cardapio/services/cardapio.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pedido',
   standalone: true,
   imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
     MatSelectModule,
     CommonModule,
     MatButtonModule
@@ -20,20 +25,26 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class PedidoComponent {
 
-public itensCardapio$: Observable<ItemCardapio[]> | null = null;
+  formGroup: FormGroup;
+  public itensCardapio$: Observable<ItemCardapio[]> | null = null;
 
   pedido: string = '';
 
-  constructor(
+  constructor(private formBuilder: FormBuilder,
     private cardapioService: CardapioService,
     private pedidoService: PedidoService
   ) {
+
+    this.formGroup = this.formBuilder.group({
+      pedido: [null],
+      quantidade: [null]
+    });
 
     this.itensCardapio$ = this.cardapioService.listar().pipe();
   }
 
   realizarPedido() {
 
-    this.pedidoService.listar().subscribe();
+    this.pedidoService.pedir(this.formGroup.value).subscribe();
   }
 }

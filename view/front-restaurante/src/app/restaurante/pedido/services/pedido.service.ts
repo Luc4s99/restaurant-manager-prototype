@@ -1,3 +1,4 @@
+import { Pedido } from './../../modelos/pedido';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,8 +11,8 @@ export class PedidoService {
 
   constructor(private httpClient : HttpClient) { }
 
-  listar() {
+  pedir(pedido: Pedido) {
 
-    return this.httpClient.get<String>(this.GATEWAY);
+    return this.httpClient.post<Pedido>(this.GATEWAY, pedido);
   }
 }
