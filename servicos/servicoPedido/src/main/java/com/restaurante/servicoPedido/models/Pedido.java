@@ -23,4 +23,7 @@ public class Pedido {
 
     @Getter @Setter
     private Date data;
+
+    @Getter @Setter
+    private String status;
 }

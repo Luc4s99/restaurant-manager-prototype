@@ -9,12 +9,17 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedido',
   standalone: true,
   imports: [
     MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatSelectModule,
     CommonModule,
@@ -32,7 +37,9 @@ export class PedidoComponent {
 
   constructor(private formBuilder: FormBuilder,
     private cardapioService: CardapioService,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
 
     this.formGroup = this.formBuilder.group({
@@ -45,6 +52,17 @@ export class PedidoComponent {
 
   realizarPedido() {
 
+    console.log(this.formGroup.value);
     this.pedidoService.pedir(this.formGroup.value).subscribe();
+  }
+
+  verCarrinho() {
+
+    this.router.navigate(["carrinho"]);
+  }
+
+  adicionarItem(id: string) {
+
+    this.router.navigate(["cardapio", id], {queryParams: {pedido: true}})
   }
 }

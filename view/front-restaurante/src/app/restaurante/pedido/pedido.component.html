@@ -1,17 +1,10 @@
 <p>Realize seu pedido</p>
 
-<form [formGroup]="formGroup">
-  <mat-form-field>
-    <mat-label>Item</mat-label>
-    <mat-select>
-      <mat-option [value]="pedido" *ngFor="let item of itensCardapio$ | async">{{item.descricao}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<mat-card appearance="outlined" *ngFor="let item of itensCardapio$ | async">
+  <mat-card-content>{{item.descricao}}</mat-card-content>
+  <button mat-raised-button style="background-color: grey;" (click)="adicionarItem(item.id)">Adicionar Item</button>
+</mat-card>
 
-  <mat-form-field floatLabel="always">
-    <mat-label>Quantidade</mat-label>
-    <input matInput type="number" class="example-right-align" placeholder="0" formControlName="quantidade"/>
-  </mat-form-field>
-</form>
+<button mat-raised-button (click)="verCarrinho()">Ver Carrinho</button>
 
 <button mat-raised-button (click)="realizarPedido()">Pedir</button>
