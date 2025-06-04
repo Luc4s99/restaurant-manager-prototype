@@ -26,6 +26,7 @@ export class CardapioFormComponent {
   formGroup: FormGroup;
   idEditar: string | null = null;
   pedido: boolean = false;
+  idProduto: string | null = null;
 
   constructor(private formBuilder: FormBuilder,
     private service: CardapioService,
@@ -55,6 +56,7 @@ export class CardapioFormComponent {
 
           if(val != null) {
 
+            this.idProduto = val.id;
             this.formGroup.get('descricao')?.setValue(val.descricao);
             this.formGroup.get('preco')?.setValue(val.preco);
           }
@@ -66,9 +68,6 @@ export class CardapioFormComponent {
 
       this.formGroup.get('descricao')?.disable();
       this.formGroup.get('preco')?.disable();
-    }else {
-
-      //this.formGroup.get('quantidade')?.hidden;
     }
   }
 
@@ -90,5 +89,19 @@ export class CardapioFormComponent {
 
   adicionarItem() {
 
+    //Adiciona o item e a quantidade no carrinho, que é armazenado na sessão
+    var carrinhoSessao = sessionStorage.getItem("carrinho");
+
+    if(carrinhoSessao === null) {
+
+      carrinhoSessao = "[]";
+    }
+
+    let itensCarrinho = JSON.parse(carrinhoSessao);
+
+    itensCarrinho.push({"idProduto": this.idProduto, "quantidade": this.formGroup.get('quantidade')?.getRawValue()});
+    sessionStorage.setItem('carrinho', JSON.stringify(itensCarrinho));
+
+    this.location.back();
   }
 }
