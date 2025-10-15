@@ -1,3 +1,4 @@
+import { ItemCardapio } from './../../modelos/item-cardapio';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -78,7 +79,14 @@ export class CardapioFormComponent {
       this.service.salvar(this.formGroup.value).subscribe(() => this.location.back());
     }else {
 
-      this.service.editar(this.formGroup.value).subscribe(() => this.location.back());
+      const itemObj : ItemCardapio = {
+
+        id: this.idEditar,
+        descricao: this.formGroup.get('descricao')?.getRawValue(),
+        preco: this.formGroup.get('preco')?.getRawValue()
+      }
+
+      this.service.editar(itemObj).subscribe(() => this.location.back());
     }
   }
 
@@ -99,7 +107,7 @@ export class CardapioFormComponent {
 
     let itensCarrinho = JSON.parse(carrinhoSessao);
 
-    itensCarrinho.push({"idProduto": this.idProduto, "quantidade": this.formGroup.get('quantidade')?.getRawValue()});
+    itensCarrinho.push({"item": this.formGroup.get('descricao')?.getRawValue(), "quantidade": this.formGroup.get('quantidade')?.getRawValue()});
     sessionStorage.setItem('carrinho', JSON.stringify(itensCarrinho));
 
     this.location.back();

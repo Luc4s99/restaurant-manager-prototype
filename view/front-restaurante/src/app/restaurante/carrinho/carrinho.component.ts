@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { CarrinhoService } from './services/carrinho.service';
+import { ItemPedido } from '../modelos/item-pedido';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrinho',
@@ -14,11 +17,16 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class CarrinhoComponent {
 
-  itensCarrinho: object[] = [];
-  displayedColumns: string[] = ['idProduto', 'quantidade'];
+  itensCarrinho: ItemPedido[] = [];
+  displayedColumns: string[] = ['item', 'quantidade'];
 
-  constructor() {
+  constructor(
+    private carrinhoService : CarrinhoService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
 
+    //Verifica se existem itens armazanados na SessionStorage
     let itensString = sessionStorage.getItem("carrinho");
 
     if(itensString === null) {
@@ -31,6 +39,11 @@ export class CarrinhoComponent {
   }
 
   pedir() {
+
+    this.carrinhoService.salvarItens(this.itensCarrinho).subscribe(() => {
+
+      this.router.navigate(["/pedido"]);
+    });
 
   }
 }

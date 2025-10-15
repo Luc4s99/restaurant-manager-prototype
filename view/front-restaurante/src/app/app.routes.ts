@@ -4,6 +4,7 @@ import { CardapioComponent } from './restaurante/cardapio/cardapio.component';
 import { CozinhaComponent } from './restaurante/cozinha/cozinha/cozinha.component';
 import { PedidoComponent } from './restaurante/pedido/pedido.component';
 import { CarrinhoComponent } from './restaurante/carrinho/carrinho.component';
+import { PedidosComponent } from './restaurante/pedido/pedidos/pedidos.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'restaurante' },
@@ -39,5 +40,10 @@ export const routes: Routes = [
   {
     path: 'pedido',
     component: PedidoComponent
+  },
+
+  {
+    path: 'pedidos',
+    component: PedidosComponent
   }
 ];

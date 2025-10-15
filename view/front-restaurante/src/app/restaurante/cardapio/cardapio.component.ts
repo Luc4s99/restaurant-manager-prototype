@@ -1,5 +1,5 @@
 import { ItemCardapio } from './../modelos/item-cardapio';
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';

@@ -31,4 +31,9 @@ export class RestauranteComponent {
 
     this.router.navigate(["pedido"])
   }
+
+  redirecionaListarPedidos() {
+
+    this.router.navigate(["pedidos"])
+  }
 }

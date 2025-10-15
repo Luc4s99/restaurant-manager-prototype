@@ -22,7 +22,7 @@ public class PedidoItem {
 
     @Getter
     @Setter
-    private UUID idProduto;
+    private UUID item;
 
     @Getter
     @Setter

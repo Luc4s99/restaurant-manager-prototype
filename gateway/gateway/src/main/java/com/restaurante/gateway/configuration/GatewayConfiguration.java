@@ -21,6 +21,13 @@ public class GatewayConfiguration {
                 .route("rotaPedido", r -> r.path("/pedido")
                         .uri("http://localhost:8082/"))
 
+                .route("rotaBuscarPedido", r -> r.path("/pedido/**")
+                        .filters(f -> f.rewritePath("pedido/(?<id>.*)", "/pedido/${id}"))
+                        .uri("http://localhost:8082"))
+
+                .route("rotaSalvarCarrinho", r -> r.path("/pedido/novo")
+                        .uri("http://localhost:8082/novo"))
+
                 //ROTAS CATÁLOGO
                 .route("rotaCardapio", r -> r.path("/cardapio")
                         .uri("http://localhost:8083/"))
