@@ -9,6 +9,6 @@ public class CozinhaListener {
     @KafkaListener(topics = "cozinha-tpc", groupId = "cozinha-group")
     public void receberPedido(String mensagem) {
 
-        System.out.println(mensagem);
+        System.out.println("PEDIDO RECEBIDO PELA COZINHA!");
     }
 }

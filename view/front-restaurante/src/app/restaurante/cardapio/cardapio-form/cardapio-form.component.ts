@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { CardapioService } from '../services/cardapio.service';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { NotificacoesService } from '../../notificacoes/notificacoes.service';
 
 @Component({
   selector: 'app-cardapio-form',
@@ -32,7 +33,8 @@ export class CardapioFormComponent {
   constructor(private formBuilder: FormBuilder,
     private service: CardapioService,
     private location: Location,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private servicoMensagem: NotificacoesService) {
 
     this.formGroup = this.formBuilder.group({
       descricao: {value: ''},
@@ -76,7 +78,19 @@ export class CardapioFormComponent {
 
     if(this.idEditar == null) {
 
-      this.service.salvar(this.formGroup.value).subscribe(() => this.location.back());
+      this.service.salvar(this.formGroup.value).subscribe(
+        {
+          next: (result) => {
+
+            this.servicoMensagem.mensagemSucesso('Item salvo com sucesso!', 'Fechar')
+          },
+
+          error: (erro) => {
+
+            this.servicoMensagem.mensagemErro('Erro ao salvar item!', 'Fechar')
+          }
+        }
+      );
     }else {
 
       const itemObj : ItemCardapio = {
@@ -88,6 +102,8 @@ export class CardapioFormComponent {
 
       this.service.editar(itemObj).subscribe(() => this.location.back());
     }
+
+    this.location.back();
   }
 
   cancelar() {

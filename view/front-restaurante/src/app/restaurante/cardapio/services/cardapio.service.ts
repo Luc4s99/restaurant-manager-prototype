@@ -1,6 +1,7 @@
 import { ItemCardapio } from './../../modelos/item-cardapio';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,14 @@ export class CardapioService {
     return this.httpClient.get<ItemCardapio[]>(this.GATEWAY);
   }
 
-  salvar(itemCardapio: ItemCardapio) {
+  salvar(itemCardapio: ItemCardapio): Observable<ItemCardapio> {
 
     return this.httpClient.post<ItemCardapio>(this.GATEWAY + "/novo", itemCardapio);
   }
 
-  remover(itemCardapio: ItemCardapio) {
+  remover(id: string) {
 
-    return this.httpClient.delete<ItemCardapio>(this.GATEWAY + `/excluir/${itemCardapio.id}`);
+    return this.httpClient.delete<ItemCardapio>(this.GATEWAY + `/excluir/${id}`);
   }
 
   editar(itemCardapio : ItemCardapio) {

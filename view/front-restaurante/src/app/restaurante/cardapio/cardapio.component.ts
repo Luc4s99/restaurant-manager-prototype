@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalConfirmacaoComponent } from '../modais/modal-confirmacao/modal-confirmacao.component';
 
 @Component({
   selector: 'app-cardapio',
@@ -34,7 +36,8 @@ export class CardapioComponent {
   constructor(
     private cardapioService: CardapioService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public matDialog: MatDialog
   ) {
 
     this.carregarItens();
@@ -55,9 +58,24 @@ export class CardapioComponent {
     this.router.navigate(["editar", item.id], {relativeTo: this.route})
   }
 
-  removerItem(item: ItemCardapio) {
+  abrirModalConfirmacao(item: ItemCardapio) {
 
-    this.cardapioService.remover(item).subscribe(
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = {
+
+      name: "product-delete",
+      title: "Confirmar ação",
+      description: "Deseja realmente excluir esse item?",
+      buttonText: "Excluir",
+      itemId: item.id
+    }
+
+    const dialogRef = this.matDialog.open(ModalConfirmacaoComponent, dialogConfig);
+
+    //Atualiza a lista de itens após a exclusão
+    dialogRef.afterClosed().subscribe(
+
       () => this.carregarItens()
     );
   }
