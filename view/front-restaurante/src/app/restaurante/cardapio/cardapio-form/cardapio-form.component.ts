@@ -1,4 +1,5 @@
-import { ItemCardapio } from './../../modelos/item-cardapio';
+import { CarrinhoService } from './../../carrinho/services/carrinho.service';
+import { Produto } from '../../modelos/produto';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -32,13 +33,14 @@ export class CardapioFormComponent {
 
   constructor(private formBuilder: FormBuilder,
     private service: CardapioService,
+    private servicoCarrinho: CarrinhoService,
     private location: Location,
     private route: ActivatedRoute,
     private servicoMensagem: NotificacoesService) {
 
     this.formGroup = this.formBuilder.group({
       descricao: {value: ''},
-      preco: {value: ''},
+      precoVenda: {value: ''},
       quantidade: {value: 0}
     });
 
@@ -59,9 +61,9 @@ export class CardapioFormComponent {
 
           if(val != null) {
 
-            this.idProduto = val.id;
+            this.idProduto = val.idProduto;
             this.formGroup.get('descricao')?.setValue(val.descricao);
-            this.formGroup.get('preco')?.setValue(val.preco);
+            this.formGroup.get('precoVenda')?.setValue(val.precoVenda);
           }
         }
       );
@@ -70,7 +72,7 @@ export class CardapioFormComponent {
     if(this.pedido) {
 
       this.formGroup.get('descricao')?.disable();
-      this.formGroup.get('preco')?.disable();
+      this.formGroup.get('precoVenda')?.disable();
     }
   }
 
@@ -93,11 +95,11 @@ export class CardapioFormComponent {
       );
     }else {
 
-      const itemObj : ItemCardapio = {
+      const itemObj : Produto = {
 
-        id: this.idEditar,
+        idProduto: this.idEditar,
         descricao: this.formGroup.get('descricao')?.getRawValue(),
-        preco: this.formGroup.get('preco')?.getRawValue()
+        precoVenda: this.formGroup.get('precoVenda')?.getRawValue()
       }
 
       this.service.editar(itemObj).subscribe(() => this.location.back());
@@ -114,17 +116,28 @@ export class CardapioFormComponent {
   adicionarItem() {
 
     //Adiciona o item e a quantidade no carrinho, que é armazenado na sessão
-    var carrinhoSessao = sessionStorage.getItem("carrinho");
+    let itensCarrinho = this.servicoCarrinho.retornaItensCarrinho();
+    let quantidadeItens = itensCarrinho.length;
 
-    if(carrinhoSessao === null) {
-
-      carrinhoSessao = "[]";
-    }
-
-    let itensCarrinho = JSON.parse(carrinhoSessao);
-
-    itensCarrinho.push({"item": this.formGroup.get('descricao')?.getRawValue(), "quantidade": this.formGroup.get('quantidade')?.getRawValue()});
+    itensCarrinho.push(
+      {
+        "idPedidoItem": null,
+        "idProduto": this.idEditar,
+        "quantidade": this.formGroup.get('quantidade')?.getRawValue()
+      }
+    );
     sessionStorage.setItem('carrinho', JSON.stringify(itensCarrinho));
+
+    //Verifica se o item foi adicionado
+    let itensCarrinhoVerificar = this.servicoCarrinho.retornaItensCarrinho();
+
+    if(itensCarrinhoVerificar.length == (quantidadeItens + 1)) {
+
+      this.servicoMensagem.mensagemSucesso('Item adicionado ao carrinho!', 'Fechar')
+    }else {
+
+      this.servicoMensagem.mensagemErro('Ocorreu um erro ao adicionar o item, tente novamente!', 'Fechar')
+    }
 
     this.location.back();
   }

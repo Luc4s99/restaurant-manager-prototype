@@ -17,11 +17,14 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter
-    private UUID id;
+    @Column(name = "ID_PRODUTO")
+    private UUID idProduto;
 
     @Getter @Setter
+    @Column(name = "DESCRICAO")
     private String descricao;
 
     @Getter @Setter
-    private Double preco;
+    @Column(name = "PRECO_VENDA")
+    private Double precoVenda;
 }

@@ -18,18 +18,22 @@ public class PedidoItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
     @Setter
-    private UUID id;
+    @Column(name = "ID_PEDIDO_ITEM")
+    private UUID idPedidoItem;
 
     @Getter
     @Setter
-    private UUID item;
+    @Column(name = "ID_PRODUTO")
+    private String idProduto;
 
     @Getter
     @Setter
+    @Column(name = "QUANTIDADE")
     private Double quantidade;
 
     @Getter
     @Setter
+    @JoinColumn(name = "ID_PEDIDO")
     @ManyToOne
     private Pedido idPedido;
 }

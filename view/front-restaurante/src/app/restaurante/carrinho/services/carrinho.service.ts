@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ItemPedido } from '../../modelos/item-pedido';
+import { PedidoItem } from '../../modelos/pedidoItem';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,25 @@ export class CarrinhoService {
     private httpClient : HttpClient
   ) { }
 
-  listar() {
+  retornaItensCarrinho() {
 
-    return this.httpClient.get<ItemPedido[]>(this.GATEWAY);
+    var carrinhoSessao = sessionStorage.getItem("carrinho");
+
+    if(carrinhoSessao === null) {
+
+      carrinhoSessao = "[]";
+    }
+
+    return JSON.parse(carrinhoSessao);
   }
 
-  salvarItens(itensCarrinho: ItemPedido[]) {
+  listar() {
 
-    return this.httpClient.post<ItemPedido[]>(this.GATEWAY + "/novo", itensCarrinho);
+    return this.httpClient.get<PedidoItem[]>(this.GATEWAY);
+  }
+
+  salvarItens(itensCarrinho: PedidoItem[]) {
+
+    return this.httpClient.post<PedidoItem[]>(this.GATEWAY + "/novo", itensCarrinho);
   }
 }

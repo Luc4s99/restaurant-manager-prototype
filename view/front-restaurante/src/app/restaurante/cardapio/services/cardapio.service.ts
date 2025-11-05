@@ -1,4 +1,4 @@
-import { ItemCardapio } from './../../modelos/item-cardapio';
+import { Produto } from '../../modelos/produto';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,26 +14,26 @@ export class CardapioService {
 
   listar() {
 
-    return this.httpClient.get<ItemCardapio[]>(this.GATEWAY);
+    return this.httpClient.get<Produto[]>(this.GATEWAY);
   }
 
-  salvar(itemCardapio: ItemCardapio): Observable<ItemCardapio> {
+  salvar(itemCardapio: Produto): Observable<Produto> {
 
-    return this.httpClient.post<ItemCardapio>(this.GATEWAY + "/novo", itemCardapio);
+    return this.httpClient.post<Produto>(this.GATEWAY + "/novo", itemCardapio);
   }
 
   remover(id: string) {
 
-    return this.httpClient.delete<ItemCardapio>(this.GATEWAY + `/excluir/${id}`);
+    return this.httpClient.delete<Produto>(this.GATEWAY + `/excluir/${id}`);
   }
 
-  editar(itemCardapio : ItemCardapio) {
+  editar(itemCardapio : Produto) {
 
-    return this.httpClient.put<ItemCardapio>(this.GATEWAY + `/editar/${itemCardapio.id}`, itemCardapio);
+    return this.httpClient.put<Produto>(this.GATEWAY + `/editar/${itemCardapio.idProduto}`, itemCardapio);
   }
 
   buscarPorId(id: string) {
 
-    return this.httpClient.get<ItemCardapio>(this.GATEWAY + `/${id}`);
+    return this.httpClient.get<Produto>(this.GATEWAY + `/${id}`);
   }
 }

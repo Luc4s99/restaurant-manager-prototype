@@ -19,11 +19,14 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
     @Setter
-    private UUID id;
+    @Column(name = "ID_PEDIDO")
+    private UUID idPedido;
 
     @Getter @Setter
-    private Date data;
+    @Column(name = "DATA_PEDIDO")
+    private Date dataPedido;
 
     @Getter @Setter
-    private String status;
+    @Column(name = "STATUS_PEDIDO")
+    private String statusPedido;
 }

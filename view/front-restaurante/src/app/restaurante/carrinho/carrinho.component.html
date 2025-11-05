@@ -1,9 +1,8 @@
 <table mat-table [dataSource]="itensCarrinho" class="mat-elevation-z8">
 
-
-  <ng-container matColumnDef="item">
+  <ng-container matColumnDef="descricao">
     <th mat-header-cell *matHeaderCellDef> Item </th>
-    <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.idProduto}} </td>
   </ng-container>
 
   <ng-container matColumnDef="quantidade">

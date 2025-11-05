@@ -52,8 +52,8 @@ public class PedidoController {
         //Primeiro é criado o pedido
         Pedido pedido = new Pedido();
 
-        pedido.setData(new Date());
-        pedido.setStatus(Status.AGUARDANDO_COZINHA.getDescricao());
+        pedido.setDataPedido(new Date());
+        pedido.setStatusPedido(Status.AGUARDANDO_COZINHA.getDescricao());
 
         //Cria o pedido, e pega o pedido, já com o id no retorno
         Pedido pedidoCriado = pedidoService.salvar(pedido);

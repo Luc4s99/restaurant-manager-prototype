@@ -1,4 +1,4 @@
-import { ItemCardapio } from './../modelos/item-cardapio';
+import { Produto } from '../modelos/produto';
 import { Component } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
@@ -30,7 +30,7 @@ import { ModalConfirmacaoComponent } from '../modais/modal-confirmacao/modal-con
 })
 export class CardapioComponent {
 
-  public itensCardapio$: Observable<ItemCardapio[]> | null = null;
+  public itensCardapio$: Observable<Produto[]> | null = null;
   public displayedColumns: string[] = ['descricao', 'preco', 'acoes'];
 
   constructor(
@@ -53,12 +53,12 @@ export class CardapioComponent {
     this.router.navigate(["novo"], {relativeTo: this.route})
   }
 
-  editarItem(item: ItemCardapio) {
+  editarItem(item: Produto) {
 
-    this.router.navigate(["editar", item.id], {relativeTo: this.route})
+    this.router.navigate(["editar", item.idProduto], {relativeTo: this.route})
   }
 
-  abrirModalConfirmacao(item: ItemCardapio) {
+  abrirModalConfirmacao(item: Produto) {
 
     const dialogConfig = new MatDialogConfig();
 
@@ -68,7 +68,7 @@ export class CardapioComponent {
       title: "Confirmar ação",
       description: "Deseja realmente excluir esse item?",
       buttonText: "Excluir",
-      itemId: item.id
+      itemId: item.idProduto
     }
 
     const dialogRef = this.matDialog.open(ModalConfirmacaoComponent, dialogConfig);

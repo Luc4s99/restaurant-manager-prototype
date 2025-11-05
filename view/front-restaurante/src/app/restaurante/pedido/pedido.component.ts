@@ -1,7 +1,7 @@
 import { PedidoService } from './services/pedido.service';
 import { Component } from '@angular/core';
 import {MatSelectModule} from '@angular/material/select';
-import { ItemCardapio } from '../modelos/item-cardapio';
+import { Produto } from '../modelos/produto';
 import { CardapioService } from '../cardapio/services/cardapio.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 export class PedidoComponent {
 
   formGroup: FormGroup;
-  public itensCardapio$: Observable<ItemCardapio[]> | null = null;
+  public itensCardapio$: Observable<Produto[]> | null = null;
 
   pedido: string = '';
 

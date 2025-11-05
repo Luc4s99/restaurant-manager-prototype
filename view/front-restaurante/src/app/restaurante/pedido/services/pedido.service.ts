@@ -1,7 +1,6 @@
 import { Pedido } from './../../modelos/pedido';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ItemPedido } from '../../modelos/item-pedido';
 
 @Injectable({
   providedIn: 'root'

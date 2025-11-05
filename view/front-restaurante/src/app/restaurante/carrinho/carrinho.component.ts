@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { CarrinhoService } from './services/carrinho.service';
-import { ItemPedido } from '../modelos/item-pedido';
+import { PedidoItem } from '../modelos/pedidoItem';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CardapioService } from '../cardapio/services/cardapio.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -17,25 +18,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CarrinhoComponent {
 
-  itensCarrinho: ItemPedido[] = [];
-  displayedColumns: string[] = ['item', 'quantidade'];
+  infoItens: {descricao: string, quantidade: number, precoVenda: number}[] = [];
+  itensCarrinho: PedidoItem[] = [];
+  displayedColumns: string[] = ['descricao', 'quantidade'];
 
   constructor(
     private carrinhoService : CarrinhoService,
+    private catalogoService: CardapioService,
     private router: Router,
     private route: ActivatedRoute
   ) {
 
-    //Verifica se existem itens armazanados na SessionStorage
-    let itensString = sessionStorage.getItem("carrinho");
+    //Verifica se existem itens armazenados na SessionStorage
+    this.itensCarrinho = carrinhoService.retornaItensCarrinho();
 
-    if(itensString === null) {
-
-      this.itensCarrinho = [];
-    }else {
-
-      this.itensCarrinho = JSON.parse(itensString);
-    }
+    console.log(this.itensCarrinho);
   }
 
   pedir() {

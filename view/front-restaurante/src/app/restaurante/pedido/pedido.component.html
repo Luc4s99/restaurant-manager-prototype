@@ -2,7 +2,7 @@
 
 <mat-card appearance="outlined" *ngFor="let item of itensCardapio$ | async">
   <mat-card-content>{{item.descricao}}</mat-card-content>
-  <button mat-raised-button style="background-color: grey;" (click)="adicionarItem(item.id)">Adicionar Item</button>
+  <button mat-raised-button style="background-color: grey;" (click)="adicionarItem(item.idProduto)">Adicionar Item</button>
 </mat-card>
 
 <button mat-raised-button (click)="verCarrinho()">Ver Carrinho</button>
